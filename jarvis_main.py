@@ -2,6 +2,21 @@ import pyttsx3
 import speech_recognition as sr
 import datetime
 import pyautogui
+import os
+
+for i in range(3):
+       a= input("Enter passwd to open :-")
+       pw_file= open("password.txt","r")
+       pw = pw_file.read()
+       pw_file.close() 
+       if (a==pw):
+              print("WELCOME ! SAY [wake up] TO LOAD ME UP")
+              break
+       elif(i==2 and a!=pw):
+              exit()
+       elif(a!=pw):
+              print("Try Again")
+
 
 
 engine=pyttsx3.init('sapi5')
@@ -68,7 +83,24 @@ if __name__ == "__main__":
                        from keyboard import volumedown
                        speak("volume is turned down")
                        volumedown()
+                elif "calculate" in query:
+                       from calculateNum import wolfRamAlpha 
+                       from calculateNum import calculate
+                       query = query.replace("calculate","")
+                       query = query.replace("jarvis","")
+                       calculate(query)
+                elif "whatsapp" in query:
+                       from whatsapp import sendMessage
+                       sendMessage()      
                 
+                elif "open" in query:
+                       query = query.replace("open","")
+                       query = query.replace("jarvis","")
+                       pyautogui.press("super")
+                       pyautogui.typewrite(query) 
+                       pyautogui.press("enter")      
+
+                       
                 elif "open" in query:
                        from Dictapp import openappweb
                        openappweb(query)
@@ -106,5 +138,18 @@ if __name__ == "__main__":
                        pyautogui.press("Enter")
                        pyautogui.sleep(2)
                        speak("smile")
-                       pyautogui.press("Enter") 
-                        
+                       pyautogui.press("Enter")
+
+                elif "shutdown system" in query:
+                       speak("Are you really want to shutdown your system")
+                       shutdown = input("Are you really want to shut down (y/n)") 
+                       if shutdown == "yes":
+                              os.system("shutdown /s /t 1")
+                       elif shutdown == "no":
+                              break
+                elif "open" in query:
+                       query = query.replace("open","")
+                       query = query.replace("jarvis","")
+                       pyautogui.press("super")
+                       pyautogui.typewrite(query) 
+                       pyautogui.press("enter")      

@@ -3,7 +3,9 @@ import pyttsx3
 import pywhatkit
 import wikipedia
 import webbrowser
-
+import pyautogui
+from time import sleep
+import os
 def takeCommand():
     r = sr.Recognizer() 
     with sr.Microphone() as source:
@@ -31,6 +33,8 @@ engine.setProperty("rate",170)
 def speak(audio):
     engine.say(audio)
     engine.runAndWait()
+searchnow={"searchGoogle=searchGoogle","youtube=youtube"}
+
 
 def searchGoogle(query):
     if "google" in query:
@@ -69,3 +73,17 @@ def searchWikipedia(query):
         print(results)
         speak(results)
         
+def closeappweb (query):
+        speak("closing...")
+        if "one tan" or "1 tab" in query:
+            pyautogui.hotkey("ctrl","w")
+            speak("tab is closed")
+        elif "2 tab" in query:
+            pyautogui.hotkey("ctrl","w")
+            sleep(0.5)
+
+        else :
+            keys = list(searchnow.keys())
+            for app in keys:
+                for app in query:
+                    os.system(f"taskkill /f im {searchnow[app]}.exe")
